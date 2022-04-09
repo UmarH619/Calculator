@@ -4,22 +4,22 @@ class Calculator {
       this.currentOperandTextElement = currentOperandTextElement
       this.clear()
     }
-  
+// clear button function
     clear() {
       this.currentOperand = ''
       this.previousOperand = ''
       this.operation = undefined
     }
-  
+// delete button function to remove the previous input
     delete() {
       this.currentOperand = this.currentOperand.toString().slice(0, -1)
     }
-  
+// append number function adds a number onto the end of the input and checks to make sure there is not more than one decimal place
     appendNumber(number) {
       if (number === '.' && this.currentOperand.includes('.')) return
       this.currentOperand = this.currentOperand.toString() + number.toString()
     }
-  
+// chooses operation function to select one of the operations (+ - * ÷)
     chooseOperation(operation) {
       if (this.currentOperand === '') return
       if (this.previousOperand !== '') {
@@ -29,7 +29,7 @@ class Calculator {
       this.previousOperand = this.currentOperand
       this.currentOperand = ''
     }
-  
+// compute function will use previous and current inputs to do the calulation
     compute() {
       let computation
       const prev = parseFloat(this.previousOperand)
@@ -55,7 +55,7 @@ class Calculator {
       this.operation = undefined
       this.previousOperand = ''
     }
-  
+// get display number function takes the number you get and allows it to be displayed
     getDisplayNumber(number) {
       const stringNumber = number.toString()
       const integerDigits = parseFloat(stringNumber.split('.')[0])
@@ -72,7 +72,7 @@ class Calculator {
         return integerDisplay
       }
     }
-  
+// update display funtion uses the previous function to update the number on to the display itself
     updateDisplay() {
       this.currentOperandTextElement.innerText =
         this.getDisplayNumber(this.currentOperand)
@@ -85,7 +85,7 @@ class Calculator {
     }
   }
   
-  
+// variables
   const numberButtons = document.querySelectorAll('[data-number]')
   const operationButtons = document.querySelectorAll('[data-operation]')
   const equalsButton = document.querySelector('[data-equals]')
@@ -93,9 +93,9 @@ class Calculator {
   const allClearButton = document.querySelector('[data-all-clear]')
   const previousOperandTextElement = document.querySelector('[data-previous-operand]')
   const currentOperandTextElement = document.querySelector('[data-current-operand]')
-  
   const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
-  
+
+// loops and event listeners
   numberButtons.forEach(button => {
     button.addEventListener('click', () => {
       calculator.appendNumber(button.innerText)
